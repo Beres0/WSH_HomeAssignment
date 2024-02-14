@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 
 namespace WSH_HomeAssignment.Api
 {
@@ -8,6 +9,7 @@ namespace WSH_HomeAssignment.Api
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddAppServices(builder);
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
