@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -8,6 +8,16 @@
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Infrastructure\ExchangeRatesService\MNBExchangeRatesService\test.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Files\test.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
@@ -25,6 +35,10 @@
   <ItemGroup>
     <ProjectReference Include="..\WSH_HomeAssignment.Domain\WSH_HomeAssignment.Domain.csproj" />
     <ProjectReference Include="..\WSH_HomeAssignment.Infrastructure\WSH_HomeAssignment.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Domain\" />
   </ItemGroup>
 
 </Project>
