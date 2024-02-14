@@ -1,4 +1,4 @@
-﻿namespace WSH_HomeAssignment.Domain.Repository
+﻿namespace WSH_HomeAssignment.Domain.Repositories
 {
     public interface IPaginationArgs
     {
