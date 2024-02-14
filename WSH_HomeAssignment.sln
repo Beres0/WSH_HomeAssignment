@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSH_HomeAssignment.Domain",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSH_HomeAssignment.Infrastructure", "WSH_HomeAssignment.Infrastructure\WSH_HomeAssignment.Infrastructure.csproj", "{40D2B72C-DB7D-4BEF-86F0-7289E2F1E18A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WSH_HomeAssignment.Client", "WSH_HomeAssignment.Client", "{4028E2A2-D708-4137-9835-8C92DE55D125}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
