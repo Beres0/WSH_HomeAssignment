@@ -10,7 +10,7 @@ namespace WSH_HomeAssignment.Api.Services.ExchangeRates.Outputs
             {
 
                 Currency = saved.ExchangeRate.Currency,
-                Date = saved.ExchangeRate.Date,
+                Date = saved.ExchangeRate.Date.ToDto(),
                 Unit = saved.ExchangeRate.Unit,
                 Value = saved.ExchangeRate.Value,
                 Note = saved.Note

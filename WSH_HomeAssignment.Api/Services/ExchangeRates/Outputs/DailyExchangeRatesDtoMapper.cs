@@ -8,7 +8,7 @@ namespace WSH_HomeAssignment.Api.Services.ExchangeRates.Outputs
         {
             return new DailyExchangeRatesDto()
             {
-                Date = exchangeRates.Date,
+                Date = exchangeRates.Date.ToDto(),
                 ExchangeRates = exchangeRates.ToDictionary(r => r.Key, r => r.Value.ToDto())
             };
         }

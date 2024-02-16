@@ -2,7 +2,7 @@
 {
     public class SavedExchangeRateDto
     {
-        public DateOnly Date { get; set; }
+        public DateDto Date { get; set; } = null!;
         public string Currency { get; set; } = null!;
         public int Unit { get; set; }
         public double Value { get; set; }
