@@ -19,7 +19,7 @@ namespace WSH_HomeAssignment.Tests.Infrastructure.ExchangeRatesService.MNBExchan
             var exchangeRates = parser.Parse(xml);
             
             Assert.NotNull(exchangeRates);
-            Assert.Equal(new DateTime(2024, 02, 12), exchangeRates.Id);
+            Assert.Equal(new DateOnly(2024, 02, 12), exchangeRates.Date);
             Assert.True(exchangeRates.ContainsKey("AUD"));
             Assert.Equal(234.55000, exchangeRates["AUD"].Value);
             Assert.Equal(1, exchangeRates["AUD"].Unit);
