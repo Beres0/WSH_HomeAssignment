@@ -1,22 +1,28 @@
-﻿using WSH_HomeAssignment.Domain.Exceptions;
-
-namespace WSH_HomeAssignment.Domain.Entities
+﻿namespace WSH_HomeAssignment.Domain.Entities
 {
-    public class ExchangeRate
+    public class ExchangeRate : IEntity
     {
-        public string Currency { get; }
-        public int Unit { get; }
-        public double Value { get; }
+        public string Currency { get; protected set; }
+        public int Unit { get; protected set; }
+        public double Value { get; protected set; }
+
         public ExchangeRate(string currency, int unit, double value)
         {
-            InvalidEntityException.CheckNullOrWhiteSpace(currency);
-            InvalidEntityException.CheckMaxLength(currency, DomainConstants.CurrencyMaxLength);
-            InvalidEntityException.CheckMin(unit,DomainConstants.ValueMin);
-            InvalidEntityException.CheckMin(value,DomainConstants.UnitMin);
+            InvalidArgumentException.CheckNullOrWhiteSpace(currency);
+            InvalidArgumentException.CheckMaxLength(currency, DomainConstants.CurrencyMaxLength);
+            InvalidArgumentException.CheckMin(unit, DomainConstants.ValueMin);
+            InvalidArgumentException.CheckMin(value, DomainConstants.UnitMin);
 
             Currency = currency;
             Unit = unit;
             Value = value;
         }
+
+        public virtual object[] GetKey()
+        {
+            return new object[] { Currency };
+        }
+
     }
+
 }
