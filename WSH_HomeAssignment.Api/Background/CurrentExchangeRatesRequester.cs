@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
-using WSH_HomeAssignment.Domain.Exceptions;
-using WSH_HomeAssignment.Domain.ExchangeServices;
+using WSH_HomeAssignment.Domain.Infrastructure;
 using WSH_HomeAssignment.Domain.Repositories;
 
 namespace WSH_HomeAssignment.Api.Background
