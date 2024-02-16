@@ -4,16 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WSH_HomeAssignment.Domain.Entities;
-using WSH_HomeAssignment.Domain.Exceptions;
-using WSH_HomeAssignment.Domain.ExchangeServices;
+using WSH_HomeAssignment.Domain.Entities.WSH_HomeAssignment.Domain.Entities;
+using WSH_HomeAssignment.Domain.Infrastructure;
 using WSH_HomeAssignment.Domain.Repositories;
 
-namespace WSH_HomeAssignment.Domain.ExchangeRatesServices
+namespace WSH_HomeAssignment.Infrastructure.ExchangeRatesServices
 {
     public class CachedExchangeRatesService : ICachedExchangeRatesService
     {
-        private static DailyExchangeRates? cached;
-        private static readonly SemaphoreSlim slim = new SemaphoreSlim(1, 1);
+        private static DailyExchangeRateCollection? cached;
 
         private readonly IDailyExchangeRateRepository repository;
         private readonly IExternalExchangeRatesService external;
@@ -23,31 +22,31 @@ namespace WSH_HomeAssignment.Domain.ExchangeRatesServices
             this.external = external;
         }
 
-        public Task<DailyExchangeRates> GetCurrentExchangeRatesAsync(CancellationToken cancellationToken = default)
+        public Task<DailyExchangeRateCollection> GetCurrentExchangeRatesAsync(CancellationToken cancellationToken = default)
         {
             return Task.FromResult(cached)!;
         }
 
         public async Task RefreshAsync(CancellationToken cancellationToken = default)
         {
-            await slim.WaitAsync(cancellationToken);
-            var last = await repository.GetLastAsync(cancellationToken);
+            var last = await repository.FindLastAsync(cancellationToken);
             try
             {
-                cached = await external.GetCurrentExchangeRatesAsync(cancellationToken);
-                if(last is null || last.Id != cached.Id)
+                var requested = await external.GetCurrentExchangeRatesAsync(cancellationToken);
+                if(last is null || last.Date< requested.Date)
                 {
-                    await repository.CreateAsync(cached, cancellationToken);
+                    await repository.CreateAsync(requested, cancellationToken);
                     await repository.SaveChangesAsync(cancellationToken);
+                    cached = requested;
+                }
+                else
+                {
+                    cached = last;
                 }
             }
             catch (InfrastructureException)
             {
                 cached = last;
-            }
-            finally
-            {
-                slim.Release();
             }
         }
     }
