@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using WSH_HomeAssignment.Domain.Entities;
-using WSH_HomeAssignment.Domain.Exceptions;
-using WSH_HomeAssignment.Domain.ExchangeServices;
+using WSH_HomeAssignment.Domain.Entities.WSH_HomeAssignment.Domain.Entities;
+using WSH_HomeAssignment.Domain.Infrastructure;
 using www.mnb.hu.webservices;
 
 namespace WSH_HomeAssignment.Infrastructure.ExchangeRatesService
@@ -24,7 +24,7 @@ namespace WSH_HomeAssignment.Infrastructure.ExchangeRatesService
 
         public string Source => "https://www.mnb.hu/arfolyamok.asmx";
 
-        public async Task<DailyExchangeRates> GetCurrentExchangeRatesAsync(CancellationToken cancellationToken=default)
+        public async Task<DailyExchangeRateCollection> GetCurrentExchangeRatesAsync(CancellationToken cancellationToken=default)
         {
             try
             {
