@@ -48,8 +48,18 @@ namespace WSH_HomeAssignment.Infrastructure.Data.Repositories
         public async Task<SavedExchangeRate> GetAsync(DateOnly date, string currency, string userId, CancellationToken cancellationToken = default)
         {
             var result = await FindAsync(date, currency, userId, cancellationToken);
-            EntityNotFoundException<SavedExchangeRate>.CheckResult(result, date, currency, userId);
+            EntityNotFoundException.Check<SavedExchangeRate>(result, date, currency, userId);
             return result!;
+        }
+
+        public async Task<SavedDailyExchangeRateCollection> GetAsync(DateOnly date,string userId,CancellationToken cancellationToken = default)
+        {
+            var dateTime = date.ToDateTime();
+            var result = GetOrderedExchangeRates().Where(r => r.Date == dateTime&&r.UserId==userId)
+                                                  .Include(r=>r.ExchangeRate);
+
+            var exchangeRates = await result.Select(r => r.ToDomainModel()).ToListAsync(cancellationToken);
+            return new SavedDailyExchangeRateCollection(date,userId, exchangeRates);
         }
         public async Task<SavedExchangeRate?> FindAsync(DateOnly date, string currency, string userId, CancellationToken cancellationToken = default)
         {
@@ -64,7 +74,7 @@ namespace WSH_HomeAssignment.Infrastructure.Data.Repositories
         public async Task<SavedExchangeRate> CreateAsync(SavedExchangeRate saved, CancellationToken cancellationToken = default)
         {
             var result = await FindRecordAsync(saved, cancellationToken);
-            EntityAlreadyExistsException<SavedExchangeRate>.CheckResult(result, saved.GetKey());
+            EntityAlreadyExistsException.Check<SavedExchangeRate>(result, saved.GetKey());
             await context.SavedExchangeRates.AddAsync(saved.ToRecord(), cancellationToken);
             return saved;
 
@@ -73,7 +83,7 @@ namespace WSH_HomeAssignment.Infrastructure.Data.Repositories
         public async Task<SavedExchangeRate> UpdateAsync(SavedExchangeRate saved, CancellationToken cancellationToken = default)
         {
             var result = await FindRecordAsync(saved, cancellationToken);
-            EntityNotFoundException<SavedExchangeRate>.CheckResult(result, saved.GetKey());
+            EntityNotFoundException.Check<SavedExchangeRate>(result, saved.GetKey());
             result!.Note = saved.Note;
             context.Update(result);
             return saved;
@@ -82,7 +92,7 @@ namespace WSH_HomeAssignment.Infrastructure.Data.Repositories
         public async Task DeleteAsync(DateOnly date, string currency, string userId, CancellationToken cancellationToken = default)
         {
             var result = await FindRecordAsync(date, currency, userId, cancellationToken);
-            EntityNotFoundException<SavedExchangeRate>.CheckResult(result, date, currency, userId);
+            EntityNotFoundException.Check<SavedExchangeRate>(result, date, currency, userId);
             context.SavedExchangeRates.Remove(result!);
         }
 

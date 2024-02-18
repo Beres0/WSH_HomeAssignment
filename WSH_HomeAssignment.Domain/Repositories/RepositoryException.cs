@@ -3,38 +3,47 @@ using WSH_HomeAssignment.Domain.Entities;
 
 namespace WSH_HomeAssignment.Domain.Repositories
 {
-    public class RepositoryException : Exception
+    public class RepositoryException : DomainException
     {
-
-        public RepositoryException(string? message) : base(message)
+        public Type Type { get; }
+      
+        public RepositoryException(Type type,string? message) : base(message)
         {
+            Type = type;
+            ErrorCode = 2000;
         }
     }
-    public class EntityNotFoundException<T> : RepositoryException
+    public class EntityNotFoundException : RepositoryException
     {
-        public EntityNotFoundException(string? message) : base(message)
-        {
-        }
-
-        public static void CheckResult(object? result, params object[] keys)
+        public static void Check<T>(object? result, params object[] keys)
         {
             if (result is null)
             {
-                throw new EntityNotFoundException<T>($"{typeof(T).Name}[{string.Join(", ", keys)}] is not found.");
+                throw new EntityNotFoundException(typeof(T), $"{typeof(T).Name}[{string.Join(", ", keys)}] is not found.");
+            
             }
         }
+        public EntityNotFoundException(Type type,string? message) : base(type,message)
+        {
+            ErrorCode = 2001;
+        }
+
+        
     }
-    public class EntityAlreadyExistsException<T> : RepositoryException
+    public class EntityAlreadyExistsException : RepositoryException
     {
-        public static void CheckResult(object? result, params object[] keys)
+        public EntityAlreadyExistsException(Type type, string? message) : base(type, message)
+        {
+            ErrorCode = 2002;
+        }
+
+        public static void Check<T>(object? result, params object[] keys)
         {
             if (result is not null)
             {
-                throw new EntityAlreadyExistsException<T>($"{typeof(T).Name}[{string.Join(", ", keys)}] is already exists.");
+                throw new EntityAlreadyExistsException(typeof(T),$"{typeof(T).Name}[{string.Join(", ", keys)}] is already exists.");
             }
         }
-        public EntityAlreadyExistsException(string? message) : base(message)
-        {
-        }
+      
     }
 }
