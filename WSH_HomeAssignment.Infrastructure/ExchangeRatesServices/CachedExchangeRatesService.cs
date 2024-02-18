@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WSH_HomeAssignment.Domain;
 using WSH_HomeAssignment.Domain.Entities;
-using WSH_HomeAssignment.Domain.Entities.WSH_HomeAssignment.Domain.Entities;
-using WSH_HomeAssignment.Domain.Infrastructure;
+using WSH_HomeAssignment.Domain.ExchangeRatesServices;
 using WSH_HomeAssignment.Domain.Repositories;
 
 namespace WSH_HomeAssignment.Infrastructure.ExchangeRatesServices

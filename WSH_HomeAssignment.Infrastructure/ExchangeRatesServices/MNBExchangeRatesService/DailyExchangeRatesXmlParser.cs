@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using WSH_HomeAssignment.Domain.Entities;
-using WSH_HomeAssignment.Domain.Entities.WSH_HomeAssignment.Domain.Entities;
 
 namespace WSH_HomeAssignment.Infrastructure.ExchangeRatesService
 {

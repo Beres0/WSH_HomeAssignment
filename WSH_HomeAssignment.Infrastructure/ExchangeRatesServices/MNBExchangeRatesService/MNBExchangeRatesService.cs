@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using WSH_HomeAssignment.Domain;
 using WSH_HomeAssignment.Domain.Entities;
-using WSH_HomeAssignment.Domain.Entities.WSH_HomeAssignment.Domain.Entities;
-using WSH_HomeAssignment.Domain.Infrastructure;
+using WSH_HomeAssignment.Domain.ExchangeRatesServices;
 using www.mnb.hu.webservices;
 
 namespace WSH_HomeAssignment.Infrastructure.ExchangeRatesService
