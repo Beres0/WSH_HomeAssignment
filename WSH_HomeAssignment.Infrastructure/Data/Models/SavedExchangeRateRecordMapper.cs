@@ -18,5 +18,9 @@ namespace WSH_HomeAssignment.Infrastructure.Data.Models
         {
             return new SavedExchangeRate(saved.ExchangeRate?.ToDomainModel()!, saved.UserId).SetNote(saved.Note);
         }
+        internal static ExchangeRate ToExchangeRateDomainModel(this SavedExchangeRateRecord saved)
+        {
+            return new ExchangeRate(saved.Currency, saved.ExchangeRate.Unit, saved.ExchangeRate.Value);
+        }
     }
 }
