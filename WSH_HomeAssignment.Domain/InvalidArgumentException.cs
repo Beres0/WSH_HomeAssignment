@@ -5,13 +5,15 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using WSH_HomeAssignment.Domain;
 
 namespace WSH_HomeAssignment
 {
-    public class InvalidArgumentException : Exception
+    public class InvalidArgumentException : DomainException
     {
         public InvalidArgumentException(string? message) : base(message)
         {
+            ErrorCode = 1000;
         }
         public static void CheckNullOrWhiteSpace(string argument, [CallerArgumentExpression(nameof(argument))] string? expression = default)
         {
@@ -65,7 +67,6 @@ namespace WSH_HomeAssignment
             {
                 throw new InvalidArgumentException($"{expression} must be greater than or equal to {min}.");
             }
-
 
         }
         public static void CheckMax<T>(T argument, T max, [CallerArgumentExpression(nameof(argument))] string? expression = default)
