@@ -1,0 +1,10 @@
+<app-saved-exchange-rate
+  [noteMaxLength]="noteMaxLength"
+  [item]="item"
+  (onConfirm)="confirm($event)"
+  (onDelete)="delete($event)"
+  *ngFor="let item of items"
+></app-saved-exchange-rate>
+<div class="text-center" *ngIf="items.length<totalCount">
+    <button (click)="more()" class="btn btn-info w-50 me-auto ms-auto text-light mb-3"><i class="bi bi-download"> More</i></button>
+</div>
