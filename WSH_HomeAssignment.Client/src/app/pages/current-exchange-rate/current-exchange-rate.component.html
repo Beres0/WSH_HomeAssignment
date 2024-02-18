@@ -1,0 +1,4 @@
+<div *ngIf="current">
+    <app-exchange-rate-converter [current]="current"></app-exchange-rate-converter>
+    <app-exchange-rate-table [current]="current" [savedCurrent]="savedCurrent" [service]="service" ></app-exchange-rate-table>
+</div>
