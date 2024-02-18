@@ -10,7 +10,7 @@ namespace WSH_HomeAssignment.Api.Services.ExchangeRates
             {
                 Year = date.Year,
                 Month = date.Month,
-                Day = date.Year
+                Day = date.Day
             };
         }
         public static DateOnly ToDateOnly(this DateDto dto)
