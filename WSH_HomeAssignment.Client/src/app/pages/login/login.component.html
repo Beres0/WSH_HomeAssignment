@@ -1,0 +1,44 @@
+<form class="card w-100 bg-dark text-light" (ngSubmit)="onSubmit()">
+  <div class="card-header">
+    <div class="card-title d-flex flex-row justify-content-between">
+      <h5 class="my-auto">Login to ExchangeRates</h5>
+      <small class="my-auto text-light"
+        >or
+        <a class="link-success" href="registration"
+          >create an account</a
+        ></small
+      >
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="form-group">
+      <label for="name">User name</label>
+      <input
+        type="text"
+        class="form-control bg-dark text-light"
+        name="userName"
+        id="userName"
+        [(ngModel)]="loginModel.userName"
+      />
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        class="form-control  bg-dark text-light"
+        id="password"
+        name="password"
+        [(ngModel)]="loginModel.password"
+      />
+    </div>
+    
+  </div>
+  <div class="card-footer d-flex justify-content-center">
+    <input type="submit" class="btn btn-outline-success w-25" [disabled]="submitDisabled" value="Submit" />
+  </div>
+</form>
+<div *ngIf="errorMsg" class="card bg-danger border-light p-3 mt-2">
+    <small class="text-light d-block" *ngFor="let item of errorMsg">{{item | uppercase}}</small>
+</div>
+
