@@ -7,7 +7,7 @@ namespace WSH_HomeAssignment.Infrastructure.Data
         public ExchangeRateDbContext CreateDbContext(string[] args)
         {
             var builder = new DbContextOptionsBuilder<ExchangeRateDbContext>();
-            builder.UseSqlServer("Server=(LocalDb)\\\\MSSQLLocalDB;Database=ExchangeRates;Trusted_Connection=True;TrustServerCertificate=True");
+            builder.UseSqlServer("Data Source=(localdb)\\mssqllocaldb;Database=exchange-rates;Trusted_Connection=True;MultipleActiveResultSets=true");
 
             return new ExchangeRateDbContext(builder.Options);
         }
