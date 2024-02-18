@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using System.Data;
+using System.Security.Claims;
 using WSH_HomeAssignment.Domain.Authentication;
 using WSH_HomeAssignment.Domain.Entities;
 using WSH_HomeAssignment.Domain.Repositories;
@@ -13,12 +14,17 @@ namespace WSH_HomeAssignment.Infrastructure.Authentication
     {
         private readonly ITokenService tokenService;
         private readonly IPasswordHasher<IdentityUser> passwordHasher;
+        private readonly IHttpContextAccessor accessor;
         private readonly UserManager<IdentityUser> userManager;
 
-        public AuthenticationService(ITokenService tokenService,IPasswordHasher<IdentityUser> passwordHasher, UserManager<IdentityUser> userManager)
+        public AuthenticationService(ITokenService tokenService,
+                                     IPasswordHasher<IdentityUser> passwordHasher,
+                                     IHttpContextAccessor accessor,
+                                     UserManager<IdentityUser> userManager)
         {
             this.tokenService = tokenService;
             this.passwordHasher = passwordHasher;
+            this.accessor = accessor;
             this.userManager = userManager;
         }
 
@@ -29,17 +35,47 @@ namespace WSH_HomeAssignment.Infrastructure.Authentication
             if (result is null) return null;
             return result.ToDomainModel();
         }
+
+        public async Task<User> GetCurrentUserAsync()
+        {
+            return (await FindUserAsync(GetCurrentUserId()))!;
+        }
+
+        public string GetCurrentUserId()
+        {
+            var user = accessor.HttpContext?.User;
+            var nameIdClaim = user?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+            if (nameIdClaim is not null)
+            {
+                return nameIdClaim.Value;
+            }
+            else
+            {
+                throw AuthenticationException.LoginRequired;
+            }
+        }
+
         public async Task<Token> LoginAsync(Login login)
         {
             var user = await userManager.FindByNameAsync(login.UserName);
             if(user is null)
             {
-                AuthenticationException.ThrowPasswordOrUserNameIsIncorrect();
+                throw AuthenticationException.PasswordOrUserNameIsIncorrect;
             }
             var result=passwordHasher.VerifyHashedPassword(user!, user!.PasswordHash!, login.Password);
             if (result == PasswordVerificationResult.Failed)
             {
-                AuthenticationException.ThrowPasswordOrUserNameIsIncorrect();
+                throw AuthenticationException.PasswordOrUserNameIsIncorrect;
+            }
+            return tokenService.CreateToken(user.ToDomainModel());
+        }
+
+        public async Task<Token> RefreshTokenAsync()
+        {
+            var user = await FindUserAsync(GetCurrentUserId());
+            if(user is null)
+            {
+                throw AuthenticationException.LoginRequired;
             }
             return tokenService.CreateToken(user);
         }
@@ -54,7 +90,7 @@ namespace WSH_HomeAssignment.Infrastructure.Authentication
             {
                 throw new AuthenticationException(result.Errors.Select(e => e.Description));
             }
-            return tokenService.CreateToken(newUser);
+            return tokenService.CreateToken(newUser.ToDomainModel());
         }
 
        

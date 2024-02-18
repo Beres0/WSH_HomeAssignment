@@ -5,6 +5,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using WSH_HomeAssignment.Domain.Authentication;
+using WSH_HomeAssignment.Domain.Entities;
 
 namespace WSH_HomeAssignment.Infrastructure.Authentication
 {
@@ -17,17 +18,17 @@ namespace WSH_HomeAssignment.Infrastructure.Authentication
             this.configuration = configuration;
         }
 
-        public Token CreateToken(IdentityUser user)
+        public Token CreateToken(User user)
         {
             var claim = new List<Claim>
                 {
-                    new Claim(JwtRegisteredClaimNames.Name, user.UserName!),
+                    new Claim(JwtRegisteredClaimNames.NameId, user.Id!),
                     new Claim(JwtRegisteredClaimNames.Aud, configuration["JWT:ValidAudience"]!),
                     new Claim(JwtRegisteredClaimNames.Iss, configuration["JWT:ValidIssuer"]!)
                 };
             var signinKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]!));
 
-            var creds = new SigningCredentials(signinKey, SecurityAlgorithms.HmacSha512Signature);
+            var creds = new SigningCredentials(signinKey, SecurityAlgorithms.HmacSha256Signature);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
