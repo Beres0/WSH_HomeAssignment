@@ -22,8 +22,4 @@
     <ProjectReference Include="..\WSH_HomeAssignment.Infrastructure\WSH_HomeAssignment.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\ExchangeRates\Inputs\" />
-  </ItemGroup>
-
 </Project>
