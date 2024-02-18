@@ -2,15 +2,15 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using WSH_HomeAssignment.Api.Background;
 using WSH_HomeAssignment.Api.Services.Authentication;
+using WSH_HomeAssignment.Api.Services.ExchangeRates;
 using WSH_HomeAssignment.Domain.Authentication;
 using WSH_HomeAssignment.Domain.Entities;
-using WSH_HomeAssignment.Domain.Infrastructure;
+using WSH_HomeAssignment.Domain.ExchangeRatesServices;
 using WSH_HomeAssignment.Domain.Repositories;
 using WSH_HomeAssignment.Infrastructure.Authentication;
 using WSH_HomeAssignment.Infrastructure.Data;
@@ -22,9 +22,12 @@ namespace WSH_HomeAssignment.Api
 {
     public static class ServiceConfiguration
     {
-        private static void AddDbContext(IServiceCollection services)
+        private static void AddDbContext(IServiceCollection services,IConfiguration configuration)
         {
-            services.AddDbContext<ExchangeRateDbContext>();
+            services.AddDbContext<ExchangeRateDbContext>(options =>
+            {
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            });
         }
 
         private static void AddRepositories(IServiceCollection services)
@@ -82,6 +85,14 @@ namespace WSH_HomeAssignment.Api
         {
             services.AddSwaggerGen(options =>
             {
+                options.MapType<DateDto>(()=>
+                {
+                    return new OpenApiSchema()
+                    {
+                        Type = "string",
+                        Format="date"
+                    };
+                });
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,
@@ -108,10 +119,11 @@ namespace WSH_HomeAssignment.Api
         private static void AddAppServices(IServiceCollection services)
         {
             services.AddTransient<IAuthenticationAppService, AuthenticationAppService>();
+            services.AddTransient<IExchangeRatesAppService, ExchangeRatesAppService>();
         }
         public static IServiceCollection AddServices(this IServiceCollection services, WebApplicationBuilder builder)
         {
-            AddDbContext(services);
+            AddDbContext(services,builder.Configuration);
             AddAuthentication(services, builder.Configuration);
             AddRepositories(services);
             AddExchangeRateServices(services);
