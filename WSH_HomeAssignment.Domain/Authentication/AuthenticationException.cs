@@ -1,19 +1,22 @@
 ﻿namespace WSH_HomeAssignment.Domain.Authentication
 {
-    public class AuthenticationException : Exception
+    public class AuthenticationException : DomainException
     {
-        public static AuthenticationException ThrowPasswordOrUserNameIsIncorrect()
+        static public readonly AuthenticationException PasswordOrUserNameIsIncorrect = new AuthenticationException("password or username is incorrect")
+        { 
+            ErrorCode=3001 
+        };
+        static public readonly AuthenticationException LoginRequired = new AuthenticationException("login required")
         {
-            throw new AuthenticationException("password or username is incorrect");
-        }
-        public IEnumerable<string> Details { get; }
+            ErrorCode=3002
+        };
+        
         public AuthenticationException(string message) : base(message)
         {
-            Details = new string[] { message };
+            ErrorCode = 3000;
         }
-        public AuthenticationException(IEnumerable<string> errors) : base(string.Join("\n", errors.ToString()))
+        public AuthenticationException(IEnumerable<string> errors) : this(string.Join("\n", errors))
         {
-            Details = errors;
         }
     }
 }
