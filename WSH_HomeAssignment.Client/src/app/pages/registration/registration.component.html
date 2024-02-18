@@ -1,0 +1,63 @@
+<form class="card w-100 bg-dark text-light" (ngSubmit)="onSubmit()">
+    <div class="card-header">
+      <div class="card-title d-flex flex-row justify-content-between">
+        <h5 class="my-auto">Join to ExchangeRates</h5>
+        <small class="text-light my-auto"
+          >or
+          <a class="link-success" href="login"
+            >login</a
+          ></small
+        >
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="form-group">
+        <label for="name">User name</label>
+        <input
+          type="text"
+          class="form-control bg-dark text-light"
+          name="userName"
+          id="userName"
+          [(ngModel)]="registerModel.userName"
+          placeholder="Enter name"
+        />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="text"
+          class="form-control bg-dark text-light"
+          name="email"
+          id="email"
+          [(ngModel)]="registerModel.email"
+        />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          class="form-control bg-dark text-light"
+          id="password"
+          name="password"
+          [(ngModel)]="registerModel.password"
+        />
+      </div>
+      <div class="form-group">
+        <label for="confirm-password">Confirm Password</label>
+        <input
+          type="password"
+          class="form-control bg-dark text-light"
+          id="confirm-password"
+          name="confirm-password"
+          [(ngModel)]="confirmedPassword"
+        />
+      </div>
+      
+    </div>
+    <div class="card-footer d-flex justify-content-center">
+      <input type="submit" class="btn btn-outline-success w-25" [disabled]="submitDisabled()" value="Submit" />
+    </div>
+  </form>
+  <div *ngIf="errorMsg" class="card bg-danger border-light p-3 mt-2">
+    <small class="text-light d-block" *ngFor="let item of errorMsg">{{item | uppercase}}</small>
+</div>
