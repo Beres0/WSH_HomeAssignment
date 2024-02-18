@@ -7,5 +7,6 @@ namespace WSH_HomeAssignment.Api.Services.Authentication
     {
         Task<TokenDto> LoginAsync(LoginDto input);
         Task<TokenDto> RegisterAsync(RegistrationDto input);
+        Task<TokenDto> RefreshAsync();
     }
 }

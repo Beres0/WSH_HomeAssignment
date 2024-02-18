@@ -1,4 +1,5 @@
-﻿using WSH_HomeAssignment.Api.Services.Authentication.Inputs;
+﻿using WSH_HomeAssignment.Api.Controllers;
+using WSH_HomeAssignment.Api.Services.Authentication.Inputs;
 using WSH_HomeAssignment.Api.Services.Authentication.Outputs;
 using WSH_HomeAssignment.Domain.Authentication;
 
@@ -21,6 +22,12 @@ namespace WSH_HomeAssignment.Api.Services.Authentication
         public async Task<TokenDto> LoginAsync(LoginDto input)
         {
             var token = await service.LoginAsync(input.ToDomainModel());
+            return token.ToDto();
+        }
+
+        public async Task<TokenDto> RefreshAsync()
+        {
+            var token = await service.RefreshTokenAsync();
             return token.ToDto();
         }
     }
