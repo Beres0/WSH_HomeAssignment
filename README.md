@@ -68,7 +68,7 @@ ng serve
 
 ## Hiányosságok/Észrevételek
 ### Backend
-- nincsenek unit(MNBXmlParser kívételével), illetve integrációs tesztek
+- nincsenek unit([DailyExchangeRatesXmlParser](https://github.com/Beres0/WSH_HomeAssignment/blob/master/WSH_HomeAssignment.Tests/Infrastructure/ExchangeRatesService/MNBExchangeRatesService/DailyExchangeRatesXmlParserTest.cs) kívételével), illetve integrációs tesztek
 - nincs dokumentáció
 - nincs loggolás
 - nincs auditálás
