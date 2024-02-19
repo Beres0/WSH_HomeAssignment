@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WSH_HomeAssignment.Infrastructure.Data.Models
+﻿namespace WSH_HomeAssignment.Infrastructure.Data.Models
 {
     internal static class DateOnlyMapper
     {
@@ -12,6 +6,7 @@ namespace WSH_HomeAssignment.Infrastructure.Data.Models
         {
             return date.ToDateTime(TimeOnly.MinValue);
         }
+
         public static DateOnly ToDateOnly(this DateTime date)
         {
             return new DateOnly(date.Year, date.Month, date.Day);

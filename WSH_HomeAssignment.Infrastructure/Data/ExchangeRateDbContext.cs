@@ -1,19 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using WSH_HomeAssignment.Infrastructure.Data.Models;
-using Microsoft.AspNetCore.Identity;
-using WSH_HomeAssignment.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using WSH_HomeAssignment.Infrastructure.Data.Models;
 
 namespace WSH_HomeAssignment.Infrastructure.Data
 {
-
-    public class ExchangeRateDbContext:IdentityDbContext<IdentityUser>
+    public class ExchangeRateDbContext : IdentityDbContext<IdentityUser>
     {
         public ExchangeRateDbContext(DbContextOptions<ExchangeRateDbContext> options) : base(options)
         {
@@ -21,6 +14,7 @@ namespace WSH_HomeAssignment.Infrastructure.Data
 
         internal virtual DbSet<ExchangeRateRecord> ExchangeRates { get; set; } = null!;
         internal virtual DbSet<SavedExchangeRateRecord> SavedExchangeRates { get; set; } = null!;
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

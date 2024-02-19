@@ -13,6 +13,5 @@ namespace WSH_HomeAssignment.Api.Services.ExchangeRates.Outputs
                 Unit = exchangeRate.Unit
             };
         }
-
     }
 }

@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.ComponentModel.DataAnnotations.Schema;
 using WSH_HomeAssignment.Domain.Entities;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WSH_HomeAssignment.Infrastructure.Data.Models
 {
-    [PrimaryKey(nameof(UserId),nameof(Date),nameof(Currency))]
     internal class SavedExchangeRateRecord
     {
         public string UserId { get; set; } = null!;
@@ -17,13 +14,13 @@ namespace WSH_HomeAssignment.Infrastructure.Data.Models
 
         public virtual ExchangeRateRecord ExchangeRate { get; set; } = null!;
         public virtual IdentityUser User { get; set; } = null!;
-     
     }
+
     internal class SavedExchangeRateRecordConfiguration : IEntityTypeConfiguration<SavedExchangeRateRecord>
     {
         public void Configure(EntityTypeBuilder<SavedExchangeRateRecord> builder)
         {
-            builder.HasKey(nameof(SavedExchangeRateRecord.Date), nameof(SavedExchangeRateRecord.Currency),nameof(SavedExchangeRate.UserId));
+            builder.HasKey(nameof(SavedExchangeRateRecord.Date), nameof(SavedExchangeRateRecord.Currency), nameof(SavedExchangeRate.UserId));
             builder.Property(r => r.Currency).HasMaxLength(DomainConstants.CurrencyMaxLength);
             builder.Property(r => r.Note).HasMaxLength(DomainConstants.NoteMaxLength);
 

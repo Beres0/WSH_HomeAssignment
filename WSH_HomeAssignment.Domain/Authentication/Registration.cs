@@ -19,5 +19,4 @@ namespace WSH_HomeAssignment.Domain.Authentication
         public string Email { get; }
         public string Password { get; }
     }
-
 }

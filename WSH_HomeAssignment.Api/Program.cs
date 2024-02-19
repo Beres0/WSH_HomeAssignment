@@ -1,5 +1,3 @@
-using System.Runtime.CompilerServices;
-
 namespace WSH_HomeAssignment.Api
 {
     public class Program
@@ -29,7 +27,6 @@ namespace WSH_HomeAssignment.Api
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

@@ -4,6 +4,4 @@
     {
         string Source { get; }
     }
-
-
 }

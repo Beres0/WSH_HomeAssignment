@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using WSH_HomeAssignment.Api.Services.ExchangeRates;
+﻿using WSH_HomeAssignment.Api.Services.ExchangeRates;
 using WSH_HomeAssignment.Api.Services.ExchangeRates.Inputs;
 using WSH_HomeAssignment.Api.Services.ExchangeRates.Outputs;
 using WSH_HomeAssignment.Domain.Authentication;
@@ -30,12 +28,11 @@ namespace WSH_HomeAssignment.Api.Services.ExchangeRates
         public async Task<SavedExchangeRateDto> CreateSavedAsync(DateDto date, string currency, CreateUpdateSavedExchangeRateDto input)
         {
             var userId = authService.GetCurrentUserId();
-            var daily=await dailyExchangeRateRepository.GetAsync(date.ToDateOnly(), currency);
+            var daily = await dailyExchangeRateRepository.GetAsync(date.ToDateOnly(), currency);
             var saved = await savedExchangeRateRepository.CreateAsync(input.ToDomainModel(daily, userId));
             await savedExchangeRateRepository.SaveChangesAsync();
             return saved.ToDto();
         }
-
 
         public async Task DeleteSavedAsync(DateDto date, string currency)
         {
@@ -50,6 +47,7 @@ namespace WSH_HomeAssignment.Api.Services.ExchangeRates
             var userId = authService.GetCurrentUserId();
             return (await savedExchangeRateRepository.GetAsync(current.Date, userId)).ToDto();
         }
+
         public async Task<DailyExchangeRatesDto> GetCurrentAsync()
         {
             return (await exchangeRatesService.GetCurrentExchangeRatesAsync()).ToDto();
@@ -58,11 +56,10 @@ namespace WSH_HomeAssignment.Api.Services.ExchangeRates
         public async Task<SavedExchangeRateDto> GetSavedAsync(DateDto date, string currency)
         {
             var userId = authService.GetCurrentUserId();
-            var saved = await savedExchangeRateRepository.GetAsync(date.ToDateOnly(), currency,userId);
+            var saved = await savedExchangeRateRepository.GetAsync(date.ToDateOnly(), currency, userId);
             return saved.ToDto();
         }
 
-   
         public async Task<PagedResultDto<SavedExchangeRateDto>> GetSavedListAsync(PaginationArgsDto input)
         {
             var userId = authService.GetCurrentUserId();

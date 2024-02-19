@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -22,7 +21,7 @@ namespace WSH_HomeAssignment.Api
 {
     public static class ServiceConfiguration
     {
-        private static void AddDbContext(IServiceCollection services,IConfiguration configuration)
+        private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ExchangeRateDbContext>(options =>
             {
@@ -35,6 +34,7 @@ namespace WSH_HomeAssignment.Api
             services.AddTransient<IDailyExchangeRateRepository, DailyExchangeRateRepository>();
             services.AddTransient<ISavedExchangeRateRepository, SavedExchangeRateRepository>();
         }
+
         private static void AddAuthentication(IServiceCollection services, ConfigurationManager configuration)
         {
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
@@ -70,8 +70,8 @@ namespace WSH_HomeAssignment.Api
             });
             services.AddTransient<ITokenService, JwtTokenService>();
             services.AddTransient<IAuthenticationService, AuthenticationService>();
-
         }
+
         private static void AddExchangeRateServices(IServiceCollection services)
         {
             services.AddTransient<DailyExchangeRatesXmlParser>();
@@ -81,16 +81,17 @@ namespace WSH_HomeAssignment.Api
             services.AddTransient<IExchangeRatesService, CachedExchangeRatesService>();
             services.AddHostedService<CurrentExchangeRatesRequester>();
         }
+
         public static void AddSwagger(IServiceCollection services)
         {
             services.AddSwaggerGen(options =>
             {
-                options.MapType<DateDto>(()=>
+                options.MapType<DateDto>(() =>
                 {
                     return new OpenApiSchema()
                     {
                         Type = "string",
-                        Format="date"
+                        Format = "date"
                     };
                 });
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -116,14 +117,16 @@ namespace WSH_HomeAssignment.Api
             });
             });
         }
+
         private static void AddAppServices(IServiceCollection services)
         {
             services.AddTransient<IAuthenticationAppService, AuthenticationAppService>();
             services.AddTransient<IExchangeRatesAppService, ExchangeRatesAppService>();
         }
+
         public static IServiceCollection AddServices(this IServiceCollection services, WebApplicationBuilder builder)
         {
-            AddDbContext(services,builder.Configuration);
+            AddDbContext(services, builder.Configuration);
             AddAuthentication(services, builder.Configuration);
             AddRepositories(services);
             AddExchangeRateServices(services);
@@ -131,6 +134,5 @@ namespace WSH_HomeAssignment.Api
             AddSwagger(services);
             return services;
         }
-
     }
 }

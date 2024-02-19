@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WSH_HomeAssignment.Domain;
+﻿using WSH_HomeAssignment.Domain;
 using WSH_HomeAssignment.Domain.Entities;
 using WSH_HomeAssignment.Domain.ExchangeRatesServices;
 using WSH_HomeAssignment.Domain.Repositories;
@@ -17,7 +12,8 @@ namespace WSH_HomeAssignment.Infrastructure.ExchangeRatesServices
         private readonly IDailyExchangeRateRepository repository;
         private readonly IExternalExchangeRatesService external;
 
-        public CachedExchangeRatesService(IDailyExchangeRateRepository repository, IExternalExchangeRatesService external) {
+        public CachedExchangeRatesService(IDailyExchangeRateRepository repository, IExternalExchangeRatesService external)
+        {
             this.repository = repository;
             this.external = external;
         }
@@ -33,7 +29,7 @@ namespace WSH_HomeAssignment.Infrastructure.ExchangeRatesServices
             try
             {
                 var requested = await external.GetCurrentExchangeRatesAsync(cancellationToken);
-                if(last is null || last.Date< requested.Date)
+                if (last is null || last.Date < requested.Date)
                 {
                     await repository.CreateAsync(requested, cancellationToken);
                     await repository.SaveChangesAsync(cancellationToken);

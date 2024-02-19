@@ -6,6 +6,4 @@ namespace WSH_HomeAssignment.Domain.ExchangeRatesServices
     {
         Task<DailyExchangeRateCollection> GetCurrentExchangeRatesAsync(CancellationToken cancellationToken = default);
     }
-
-
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 using System.Xml.Linq;
 using WSH_HomeAssignment.Domain.Entities;
 
@@ -15,7 +10,7 @@ namespace WSH_HomeAssignment.Infrastructure.ExchangeRatesService
         {
             XDocument doc = XDocument.Parse(xml);
             var dateString = doc.Descendants("Day").First().Attribute("date")!.Value;
-            var date=DateOnly.ParseExact(dateString,
+            var date = DateOnly.ParseExact(dateString,
                                          "yyyy-MM-dd",
                                          CultureInfo.CurrentCulture);
 

@@ -7,6 +7,7 @@ namespace WSH_HomeAssignment.Api.Services.Authentication.Inputs
     {
         [Required]
         public string UserName { get; set; } = null!;
+
         [Required]
         [MinLength(DomainConstants.PasswordRequiredLength)]
         public string Password { get; set; } = null!;

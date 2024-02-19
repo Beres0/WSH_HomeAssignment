@@ -1,14 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc;
-using WSH_HomeAssignment.Domain.ExchangeRatesServices;
-using WSH_HomeAssignment.Domain.Repositories;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using WSH_HomeAssignment.Domain.Authentication;
+using WSH_HomeAssignment.Domain.Repositories;
 
 namespace WSH_HomeAssignment.Api.Filters
 {
-    public class ExceptionToHttpErrorFilter:ExceptionFilterAttribute
+    public class ExceptionToHttpErrorFilter : ExceptionFilterAttribute
     {
-
         private static readonly Dictionary<Type, int> map = new Dictionary<Type, int>()
         {
             {typeof(AuthenticationException),StatusCodes.Status401Unauthorized},
@@ -16,10 +14,11 @@ namespace WSH_HomeAssignment.Api.Filters
             {typeof(EntityAlreadyExistsException),StatusCodes.Status403Forbidden},
             {typeof(InvalidArgumentException),StatusCodes.Status400BadRequest},
         };
+
         public override Task OnExceptionAsync(ExceptionContext context)
         {
             var type = context.Exception.GetType();
-            if(map.TryGetValue(type, out int value))
+            if (map.TryGetValue(type, out int value))
             {
                 var statusCode = value;
                 context.Result = new ObjectResult(context.Exception.ToDto(statusCode)) { StatusCode = statusCode };

@@ -8,30 +8,30 @@ import { RegistrationComponent } from './pages/registration/registration.compone
 import { SavedExchangeRateListComponent } from './pages/saved-exchange-rate-list/saved-exchange-rate-list.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: CurrentExchangeRateComponent,
-    canActivate: mapToCanActivate([AuthGuard]),
-  },
-  {
-    path: 'saved',
-    component: SavedExchangeRateListComponent,
-    canActivate: mapToCanActivate([AuthGuard]),
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
-    canActivate: mapToCanActivate([UnAuthGuard]),
-  },
-  {
-    path: 'registration',
-    component: RegistrationComponent,
-    canActivate: mapToCanActivate([UnAuthGuard]),
-  },
+    {
+        path: '',
+        component: CurrentExchangeRateComponent,
+        canActivate: mapToCanActivate([AuthGuard]),
+    },
+    {
+        path: 'saved',
+        component: SavedExchangeRateListComponent,
+        canActivate: mapToCanActivate([AuthGuard]),
+    },
+    {
+        path: 'login',
+        component: LoginComponent,
+        canActivate: mapToCanActivate([UnAuthGuard]),
+    },
+    {
+        path: 'registration',
+        component: RegistrationComponent,
+        canActivate: mapToCanActivate([UnAuthGuard]),
+    },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule],
 })
 export class AppRoutingModule {}

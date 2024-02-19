@@ -13,11 +13,12 @@ namespace WSH_HomeAssignment.Api.Services.ExchangeRates
                 Day = date.Day
             };
         }
+
         public static DateOnly ToDateOnly(this DateDto dto)
         {
             try
             {
-                var date=new DateOnly(dto.Year, dto.Month, dto.Day);
+                var date = new DateOnly(dto.Year, dto.Month, dto.Day);
                 if (date >= DomainConstants.DateMin)
                 {
                     return date;

@@ -1,12 +1,12 @@
 ﻿namespace WSH_HomeAssignment.Domain.Entities
 {
-    public class SavedExchangeRate:IEntity
+    public class SavedExchangeRate : IEntity
     {
         public string UserId { get; }
         public DailyExchangeRate ExchangeRate { get; }
-        public string? Note { get; private set; } 
+        public string? Note { get; private set; }
 
-        public SavedExchangeRate(DailyExchangeRate exchangeRate,string userId)
+        public SavedExchangeRate(DailyExchangeRate exchangeRate, string userId)
         {
             InvalidArgumentException.CheckNullOrWhiteSpace(userId);
             InvalidArgumentException.CheckNull(exchangeRate);
@@ -25,8 +25,5 @@
         {
             return new object[] { ExchangeRate.Date, ExchangeRate.Currency, UserId };
         }
-
-      
-
     }
 }

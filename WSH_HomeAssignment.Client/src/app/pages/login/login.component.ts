@@ -5,31 +5,29 @@ import { AuthService } from 'src/app/api-proxy-services/auth/auth.service';
 import { ErrorDto, LoginDto } from 'src/app/api-proxy-services/models/types';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  errorMsg?:string[]
-  loginModel:LoginDto={userName:"",password:""}
-  submitDisabled:boolean=false
-  
-  constructor(private authService:AuthService,private router:Router){
-  }
+    errorMsg?: string[];
+    loginModel: LoginDto = { userName: '', password: '' };
+    submitDisabled: boolean = false;
 
-  async onSubmit(){
-    try{
-      this.submitDisabled=true
-      await this.authService.login(this.loginModel);
-      this.router.navigate(["/"])
-    }catch(error){
-      this.errorMsg=ErrorDto.CreateFromError(error)?.message
+    constructor(private authService: AuthService, private router: Router) {}
+
+    async onSubmit() {
+        try {
+            this.submitDisabled = true;
+            await this.authService.login(this.loginModel);
+            this.router.navigate(['/']);
+        } catch (error) {
+            this.errorMsg = ErrorDto.CreateFromError(error)?.message;
+        } finally {
+            this.submitDisabled = false;
+        }
     }
-    finally{
-      this.submitDisabled=false
+    debug() {
+        return JSON.stringify(this.loginModel);
     }
-  }
-debug(){
-  return JSON.stringify(this.loginModel)
-}
 }

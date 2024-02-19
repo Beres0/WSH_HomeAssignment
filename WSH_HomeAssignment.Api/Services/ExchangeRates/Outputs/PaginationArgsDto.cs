@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using WSH_HomeAssignment.Domain.Repositories;
+﻿using WSH_HomeAssignment.Domain.Repositories;
 
 namespace WSH_HomeAssignment.Api.Services.ExchangeRates.Outputs
 {

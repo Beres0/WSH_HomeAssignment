@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace WSH_HomeAssignment.Api.Services.ExchangeRates
 {
-    public class DateDtoConverter:TypeConverter
+    public class DateDtoConverter : TypeConverter
     {
         public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
         {
@@ -22,10 +22,7 @@ namespace WSH_HomeAssignment.Api.Services.ExchangeRates
                 return result.ToDto();
             }
 
-
             return new DateDto();
         }
-
-     
     }
 }

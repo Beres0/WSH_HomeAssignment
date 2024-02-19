@@ -12,6 +12,7 @@
             Expiration = expiration;
             Value = value;
         }
+
         public string UserId { get; }
         public string UserName { get; }
         public DateTime Expiration { get; }

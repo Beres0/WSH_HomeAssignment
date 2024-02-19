@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WSH_HomeAssignment.Api.Services.Validation;
 
 namespace WSH_HomeAssignment.Api.Controllers

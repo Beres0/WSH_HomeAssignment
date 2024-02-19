@@ -1,5 +1,4 @@
-﻿
-using WSH_HomeAssignment.Domain.Entities;
+﻿using WSH_HomeAssignment.Domain.Entities;
 
 namespace WSH_HomeAssignment.Api.Services.ExchangeRates.Outputs
 {

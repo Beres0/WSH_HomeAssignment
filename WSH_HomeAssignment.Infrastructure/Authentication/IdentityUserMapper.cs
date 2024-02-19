@@ -10,6 +10,7 @@ namespace WSH_HomeAssignment.Infrastructure.Authentication
         {
             return new User(user.Id, user.UserName!, user.Email!);
         }
+
         public static IdentityUser ToIdentity(this Registration registration)
         {
             return new IdentityUser()
@@ -19,7 +20,6 @@ namespace WSH_HomeAssignment.Infrastructure.Authentication
                 Email = registration.Email,
                 NormalizedEmail = registration.Email.ToUpper(),
             };
-
         }
     }
 }

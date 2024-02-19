@@ -9,6 +9,7 @@ namespace WSH_HomeAssignment.Api.Services.Authentication.Outputs
         public DateTime Expiration { get; set; }
         public string Value { get; set; } = null!;
     }
+
     public static class TokenDtoMapper
     {
         public static TokenDto ToDto(this Token token)
@@ -17,7 +18,7 @@ namespace WSH_HomeAssignment.Api.Services.Authentication.Outputs
             {
                 UserId = token.UserId,
                 UserName = token.UserName,
-                Expiration=token.Expiration,
+                Expiration = token.Expiration,
                 Value = token.Value,
             };
         }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.CompilerServices;
 using WSH_HomeAssignment.Domain;
 
 namespace WSH_HomeAssignment
@@ -15,6 +9,7 @@ namespace WSH_HomeAssignment
         {
             ErrorCode = 1000;
         }
+
         public static void CheckNullOrWhiteSpace(string argument, [CallerArgumentExpression(nameof(argument))] string? expression = default)
         {
             if (string.IsNullOrWhiteSpace(argument))
@@ -22,6 +17,7 @@ namespace WSH_HomeAssignment
                 throw new InvalidArgumentException($"{expression} is required.");
             }
         }
+
         public static void CheckNull(object argument, [CallerArgumentExpression(nameof(argument))] string? expression = default)
         {
             if (argument == null)
@@ -41,8 +37,8 @@ namespace WSH_HomeAssignment
             {
                 throw new InvalidArgumentException($"{expression} length must be at least {min} characters.");
             }
-
         }
+
         public static void CheckMaxLength(string? argument, int max, [CallerArgumentExpression(nameof(argument))] string? expression = default)
         {
             if (argument is null)
@@ -67,8 +63,8 @@ namespace WSH_HomeAssignment
             {
                 throw new InvalidArgumentException($"{expression} must be greater than or equal to {min}.");
             }
-
         }
+
         public static void CheckMax<T>(T argument, T max, [CallerArgumentExpression(nameof(argument))] string? expression = default)
                 where T : IComparable<T>
         {
@@ -80,7 +76,6 @@ namespace WSH_HomeAssignment
             {
                 throw new InvalidArgumentException($"{expression} must be less than or equal to {max}.");
             }
-
         }
     }
 }

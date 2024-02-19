@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -9,7 +8,7 @@ using WSH_HomeAssignment.Domain.Entities;
 
 namespace WSH_HomeAssignment.Infrastructure.Authentication
 {
-    public class JwtTokenService:ITokenService
+    public class JwtTokenService : ITokenService
     {
         private readonly IConfiguration configuration;
 
@@ -41,7 +40,7 @@ namespace WSH_HomeAssignment.Infrastructure.Authentication
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return new Token(user.Id,user.UserName, token.ValidTo, new JwtSecurityTokenHandler().WriteToken(token));
+            return new Token(user.Id, user.UserName, token.ValidTo, new JwtSecurityTokenHandler().WriteToken(token));
         }
     }
 }

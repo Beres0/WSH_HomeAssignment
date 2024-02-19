@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WSH_HomeAssignment.Infrastructure.ExchangeRatesService;
+﻿using WSH_HomeAssignment.Infrastructure.ExchangeRatesService;
 
 namespace WSH_HomeAssignment.Tests.Infrastructure.ExchangeRatesService.MNBExchangeRatesService
 {
-
     public class DailyExchangeRatesXmlParserTest
     {
         [Fact]
@@ -15,9 +9,9 @@ namespace WSH_HomeAssignment.Tests.Infrastructure.ExchangeRatesService.MNBExchan
         {
             var parser = new DailyExchangeRatesXmlParser();
             var xml = TestFile.ReadAllText("test.xml");
-            
+
             var exchangeRates = parser.Parse(xml);
-            
+
             Assert.NotNull(exchangeRates);
             Assert.Equal(new DateOnly(2024, 02, 12), exchangeRates.Date);
             Assert.True(exchangeRates.ContainsKey("AUD"));

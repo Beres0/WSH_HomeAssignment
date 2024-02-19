@@ -4,6 +4,4 @@
     {
         Task RefreshAsync(CancellationToken cancellationToken = default);
     }
-
-
 }

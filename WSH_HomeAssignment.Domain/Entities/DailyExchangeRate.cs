@@ -1,9 +1,8 @@
 ﻿namespace WSH_HomeAssignment.Domain.Entities
 {
-
-    public class DailyExchangeRate:ExchangeRate
+    public class DailyExchangeRate : ExchangeRate
     {
-        public DailyExchangeRate(DateOnly date,string currency, int unit, double value) : base(currency, unit, value)
+        public DailyExchangeRate(DateOnly date, string currency, int unit, double value) : base(currency, unit, value)
         {
             InvalidArgumentException.CheckMin(date, DomainConstants.DateMin);
 
@@ -11,10 +10,10 @@
         }
 
         public DateOnly Date { get; }
+
         public override object[] GetKey()
         {
-            return new object[] {Date, Currency };
+            return new object[] { Date, Currency };
         }
     }
-
 }

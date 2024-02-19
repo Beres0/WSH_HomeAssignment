@@ -6,7 +6,9 @@ namespace WSH_HomeAssignment.Api.Services.Authentication
     public interface IAuthenticationAppService
     {
         Task<TokenDto> LoginAsync(LoginDto input);
+
         Task<TokenDto> RegisterAsync(RegistrationDto input);
+
         Task<TokenDto> RefreshAsync();
     }
 }

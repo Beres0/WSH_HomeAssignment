@@ -6,6 +6,7 @@ namespace WSH_HomeAssignment.Domain.Authentication
     {
         public string UserName { get; }
         public string Password { get; }
+
         public Login(string userName, string password)
         {
             InvalidArgumentException.CheckNullOrWhiteSpace(userName);
@@ -15,5 +16,4 @@ namespace WSH_HomeAssignment.Domain.Authentication
             Password = password;
         }
     }
-
 }

@@ -2,7 +2,7 @@
 {
     public interface IPaginationArgs
     {
-       int Skip { get; }
-       int Take { get; }
+        int Skip { get; }
+        int Take { get; }
     }
 }

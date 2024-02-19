@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WSH_HomeAssignment.Domain.Entities;
 using WSH_HomeAssignment.Domain.Repositories;
 using WSH_HomeAssignment.Infrastructure.Data.Models;
@@ -13,6 +8,7 @@ namespace WSH_HomeAssignment.Infrastructure.Data.Repositories
     public class DailyExchangeRateRepository : IDailyExchangeRateRepository
     {
         private readonly ExchangeRateDbContext context;
+
         public DailyExchangeRateRepository(ExchangeRateDbContext context)
         {
             this.context = context;
@@ -39,6 +35,7 @@ namespace WSH_HomeAssignment.Infrastructure.Data.Repositories
             await context.ExchangeRates.AddRangeAsync(exchangeRates.Select(r => r.Value.ToRecord(exchangeRates.Date)));
             return exchangeRates;
         }
+
         public async Task DeleteAsync(DateOnly date, CancellationToken cancellationToken = default)
         {
             var dateTime = date.ToDateTime();
@@ -54,6 +51,7 @@ namespace WSH_HomeAssignment.Infrastructure.Data.Repositories
         {
             return (await FindRecordAsync(date, currency, cancellationToken))?.ToDomainModel() ?? null;
         }
+
         public async Task<DailyExchangeRateCollection?> FindAsync(DateOnly date, CancellationToken cancellationToken = default)
         {
             var dateTime = date.ToDateTime();
@@ -72,22 +70,24 @@ namespace WSH_HomeAssignment.Infrastructure.Data.Repositories
             EntityNotFoundException.Check<DailyExchangeRate>(result, date, currency);
             return result!;
         }
+
         public async Task<DailyExchangeRateCollection> GetAsync(DateOnly date, CancellationToken cancellationToken = default)
         {
             var result = await FindAsync(date, cancellationToken);
             EntityNotFoundException.Check<DailyExchangeRateCollection>(result, date);
             return result!;
         }
+
         public async Task<DailyExchangeRateCollection?> FindLastAsync(CancellationToken cancellationToken = default)
         {
-            var lastDate =await FindLastDateAsync(cancellationToken);
-            if(lastDate is null)
+            var lastDate = await FindLastDateAsync(cancellationToken);
+            if (lastDate is null)
             {
                 return null;
             }
             return await GetAsync(lastDate.Value, cancellationToken);
         }
-       
+
         public async Task<IPagedResult<DailyExchangeRate>> GetListAsync(string currency, IPaginationArgs args, CancellationToken cancellationToken = default)
         {
             return await new PagedResultBuilder<ExchangeRateRecord>(GetOrderedExchangeRates())
@@ -95,7 +95,6 @@ namespace WSH_HomeAssignment.Infrastructure.Data.Repositories
                       .SetPaginationArgs(args)
                       .ToPagedResultAsync(r => r.ToDomainModel(), cancellationToken);
         }
-
 
         public Task SaveChangesAsync(CancellationToken cancellationToken = default)
         {
@@ -109,8 +108,7 @@ namespace WSH_HomeAssignment.Infrastructure.Data.Repositories
             {
                 return null;
             }
-           return (await GetOrderedExchangeRates().MaxAsync(r => r.Date, cancellationToken)).ToDateOnly();
+            return (await GetOrderedExchangeRates().MaxAsync(r => r.Date, cancellationToken)).ToDateOnly();
         }
     }
-
 }

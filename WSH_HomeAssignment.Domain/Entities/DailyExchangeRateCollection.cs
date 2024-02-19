@@ -1,9 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using WSH_HomeAssignment.Domain.Repositories;
-using System.Collections;
+
 namespace WSH_HomeAssignment.Domain.Entities
 {
     public class DailyExchangeRateCollection : IEntity, IReadOnlyDictionary<string, ExchangeRate>
@@ -27,7 +25,9 @@ namespace WSH_HomeAssignment.Domain.Entities
                 return value!;
             }
         }
+
         private readonly IReadOnlyDictionary<string, ExchangeRate> exchangeRates;
+
         public DailyExchangeRateCollection(DateOnly date, IEnumerable<ExchangeRate> exchangeRates)
         {
             InvalidArgumentException.CheckMin(date, DomainConstants.DateMin);
@@ -35,6 +35,7 @@ namespace WSH_HomeAssignment.Domain.Entities
             Date = date;
             this.exchangeRates = exchangeRates.ToDictionary(r => r.Currency, r => r);
         }
+
         public bool ContainsKey(string currency)
         {
             return exchangeRates.ContainsKey(currency);

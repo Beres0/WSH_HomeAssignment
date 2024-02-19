@@ -22,7 +22,5 @@
         {
             return new object[] { Currency };
         }
-
     }
-
 }

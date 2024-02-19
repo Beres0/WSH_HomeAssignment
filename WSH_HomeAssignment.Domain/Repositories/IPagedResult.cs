@@ -1,6 +1,4 @@
-﻿using WSH_HomeAssignment.Domain.Entities;
-
-namespace WSH_HomeAssignment.Domain.Repositories
+﻿namespace WSH_HomeAssignment.Domain.Repositories
 {
     public interface IPagedResult<T>
     {
@@ -8,6 +6,7 @@ namespace WSH_HomeAssignment.Domain.Repositories
         IPaginationArgs? Args { get; }
         IList<T> Result { get; }
     }
+
     public class PagedResult<T> : IPagedResult<T>
     {
         public PagedResult(int totalCount, IPaginationArgs? args, IList<T> result)
@@ -19,7 +18,6 @@ namespace WSH_HomeAssignment.Domain.Repositories
 
         public int TotalCount { get; }
         public IPaginationArgs? Args { get; }
-        public IList<T> Result { get;}
+        public IList<T> Result { get; }
     }
-
 }

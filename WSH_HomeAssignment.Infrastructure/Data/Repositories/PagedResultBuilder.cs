@@ -1,42 +1,46 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Linq.Expressions;
-using WSH_HomeAssignment.Domain.Entities;
 using WSH_HomeAssignment.Domain.Repositories;
 
 namespace WSH_HomeAssignment.Infrastructure.Data.Repositories
 {
     internal class PagedResultBuilder<T>
-        where T:class
+        where T : class
     {
-        Expression<Func<T, bool>>? filter;
-        IPaginationArgs? args;
-        string[]? includes;
+        private Expression<Func<T, bool>>? filter;
+        private IPaginationArgs? args;
+        private string[]? includes;
         public IQueryable<T> Queryable { get; }
+
         public PagedResultBuilder(IQueryable<T> queryable)
         {
             Queryable = queryable;
         }
+
         public PagedResultBuilder<T> SetFilter(Expression<Func<T, bool>>? filter)
         {
             this.filter = filter;
             return this;
         }
+
         public PagedResultBuilder<T> SetPaginationArgs(IPaginationArgs args)
         {
             this.args = args;
             return this;
         }
+
         public PagedResultBuilder<T> SetIncludes(params string[] includes)
         {
             this.includes = includes;
             return this;
         }
+
         public async Task<PagedResult<T>> ToPagedResultAsync(CancellationToken cancellationToken = default)
         {
             return await ToPagedResultAsync(i => i, cancellationToken);
         }
-        public async Task<PagedResult<TResult>> ToPagedResultAsync<TResult>(Expression<Func<T,TResult>> transform,CancellationToken cancellationToken = default)
+
+        public async Task<PagedResult<TResult>> ToPagedResultAsync<TResult>(Expression<Func<T, TResult>> transform, CancellationToken cancellationToken = default)
         {
             var queryable = Queryable;
             if (filter != null)

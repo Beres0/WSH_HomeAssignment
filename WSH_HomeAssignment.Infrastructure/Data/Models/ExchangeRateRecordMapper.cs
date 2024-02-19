@@ -14,6 +14,7 @@ namespace WSH_HomeAssignment.Infrastructure.Data.Models
                 Unit = exchangeRate.Unit
             };
         }
+
         internal static ExchangeRateRecord ToRecord(this DailyExchangeRate exchangeRate)
         {
             return new ExchangeRateRecord()
@@ -24,9 +25,10 @@ namespace WSH_HomeAssignment.Infrastructure.Data.Models
                 Date = exchangeRate.Date.ToDateTime()
             };
         }
+
         internal static DailyExchangeRate ToDomainModel(this ExchangeRateRecord record)
         {
-            return new DailyExchangeRate(record.Date.ToDateOnly(),record.Currency, record.Unit, record.Value);
+            return new DailyExchangeRate(record.Date.ToDateOnly(), record.Currency, record.Unit, record.Value);
         }
     }
 }

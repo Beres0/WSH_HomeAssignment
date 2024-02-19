@@ -1,33 +1,57 @@
 <div class="card bg-dark text-light m-3">
     <div class="card-header d-flex flex-row">
-        <strong class="me-3">{{item?.date| dtoToDate }}</strong>
-        <strong class="me-3">{{item?.currency}}</strong>
-        <strong class="me-3">{{item?.value}}</strong>
-        <span>{{item?.unit}} unit</span>
-        <button type="button" (click)="delete()" class="btn btn-outline-danger ms-auto">
+        <strong class="me-3">{{ item?.date | dtoToDate }}</strong>
+        <strong class="me-3">{{ item?.currency }}</strong>
+        <strong class="me-3">{{ item?.value }}</strong>
+        <span>{{ item?.unit }} unit</span>
+        <button
+            type="button"
+            (click)="delete()"
+            class="btn btn-outline-danger ms-auto"
+        >
             <i class="bi bi-trash3"></i>
         </button>
     </div>
     <div class="card-body">
         <ng-container *ngIf="!editing; else elseText">
-            <textarea readonly [value]="item!.note" disabled class="form-control bg-dark text-light border-0"></textarea>            
+            <textarea
+                readonly
+                [value]="item!.note"
+                disabled
+                class="form-control bg-dark text-light border-0"
+            ></textarea>
         </ng-container>
         <ng-template #elseText>
-            <textarea [maxLength]="noteMaxLength!" [(ngModel)]="editModel!.note!" class="form-control bg-dark text-light"></textarea>
+            <textarea
+                [maxLength]="noteMaxLength!"
+                [(ngModel)]="editModel!.note!"
+                class="form-control bg-dark text-light"
+            ></textarea>
         </ng-template>
     </div>
 
     <div class="card-footer d-flex flex-row justify-content-evenly">
-
-    <ng-container *ngIf="!editing; else elseTemplate">
-            <button class="btn btn-outline-secondary w-25" (click)="startEdit()"><i class="bi bi-clipboard"> Edit</i></button>
-    </ng-container>
-    <ng-template #elseTemplate>
-        <button class="btn btn-outline-success w-25" (click)="confirmEdit()">
-            <i class="bi bi-check-circle-fill"> Confirm</i>
-        </button>
-        <button class="btn btn-outline-secondary w-25" (click)="closeEdit()"><i class="bi bi-dash-circle"> Close</i></button>
-    </ng-template>
-    
-  
+        <ng-container *ngIf="!editing; else elseTemplate">
+            <button
+                class="btn btn-outline-secondary w-25"
+                (click)="startEdit()"
+            >
+                <i class="bi bi-clipboard"> Edit</i>
+            </button>
+        </ng-container>
+        <ng-template #elseTemplate>
+            <button
+                class="btn btn-outline-success w-25"
+                (click)="confirmEdit()"
+            >
+                <i class="bi bi-check-circle-fill"> Confirm</i>
+            </button>
+            <button
+                class="btn btn-outline-secondary w-25"
+                (click)="closeEdit()"
+            >
+                <i class="bi bi-dash-circle"> Close</i>
+            </button>
+        </ng-template>
+    </div>
 </div>

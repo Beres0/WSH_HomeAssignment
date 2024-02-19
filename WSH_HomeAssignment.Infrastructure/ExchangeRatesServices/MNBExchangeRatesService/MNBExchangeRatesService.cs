@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using WSH_HomeAssignment.Domain;
+﻿using WSH_HomeAssignment.Domain;
 using WSH_HomeAssignment.Domain.Entities;
 using WSH_HomeAssignment.Domain.ExchangeRatesServices;
 using www.mnb.hu.webservices;
@@ -16,7 +10,7 @@ namespace WSH_HomeAssignment.Infrastructure.ExchangeRatesService
         private readonly DailyExchangeRatesXmlParser parser;
         private readonly MNBArfolyamServiceSoapClient client;
 
-        public MNBExchangeRatesService(DailyExchangeRatesXmlParser parser,MNBArfolyamServiceSoapClient client)
+        public MNBExchangeRatesService(DailyExchangeRatesXmlParser parser, MNBArfolyamServiceSoapClient client)
         {
             this.parser = parser;
             this.client = client;
@@ -24,7 +18,7 @@ namespace WSH_HomeAssignment.Infrastructure.ExchangeRatesService
 
         public string Source => "https://www.mnb.hu/arfolyamok.asmx";
 
-        public async Task<DailyExchangeRateCollection> GetCurrentExchangeRatesAsync(CancellationToken cancellationToken=default)
+        public async Task<DailyExchangeRateCollection> GetCurrentExchangeRatesAsync(CancellationToken cancellationToken = default)
         {
             try
             {
@@ -42,6 +36,5 @@ namespace WSH_HomeAssignment.Infrastructure.ExchangeRatesService
                 await client.CloseAsync();
             }
         }
-   
     }
 }

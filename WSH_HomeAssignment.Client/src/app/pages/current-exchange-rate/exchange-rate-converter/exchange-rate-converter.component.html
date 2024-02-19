@@ -1,47 +1,51 @@
 <form class="d-flex flex-row mx-auto w-75">
-  <div class="me-4"> 
-    <strong class="text-light">Convert</strong>
-    <select
-      class="form-select bg-dark text-light"
-      aria-label="Default select example"
-      [(ngModel)]="from"
-      [ngModelOptions]="{ standalone: true }"
-    >
-      <option value="HUF">HUF</option>
-      <option
-        *ngFor="let item of current?.exchangeRates | keyvalue"
-        [value]="item.key"
-      >
-        {{ item.key }}
-      </option>
-    </select>
-  </div>
-  <input
-    type="number"
-    value="0"
-    min="0"
-    class="form-control bg-dark text-light w-25 h-25 mt-auto me-4"
+    <div class="me-4">
+        <strong class="text-light">Convert</strong>
+        <select
+            class="form-select bg-dark text-light"
+            aria-label="Default select example"
+            [(ngModel)]="from"
+            [ngModelOptions]="{ standalone: true }"
+        >
+            <option value="HUF">HUF</option>
+            <option
+                *ngFor="let item of current?.exchangeRates | keyvalue"
+                [value]="item.key"
+            >
+                {{ item.key }}
+            </option>
+        </select>
+    </div>
+    <input
+        type="number"
+        value="0"
+        min="0"
+        class="form-control bg-dark text-light w-25 h-25 mt-auto me-4"
+        [(ngModel)]="fromUnit"
+        [ngModelOptions]="{ standalone: true }"
+    />
 
-    [(ngModel)]="fromUnit"
-    [ngModelOptions]="{ standalone: true }"
-  />
-
-  <div class="me-4">
-    <strong class="text-light">To</strong>
-    <select
-      class="form-select bg-dark text-light"
-      aria-label="Default select example"
-      [(ngModel)]="to"
-      [ngModelOptions]="{ standalone: true }"
-    >
-      <option value="HUF">HUF</option>
-      <option
-        *ngFor="let item of current?.exchangeRates | keyvalue"
-        [value]="item.key"
-      >
-        {{ item.key }}
-      </option>
-    </select>
-  </div>
-  <input class="mt-auto w-25 mt-auto form-control  bg-dark text-light" readonly disabled [value]="calculate()" />
+    <div class="me-4">
+        <strong class="text-light">To</strong>
+        <select
+            class="form-select bg-dark text-light"
+            aria-label="Default select example"
+            [(ngModel)]="to"
+            [ngModelOptions]="{ standalone: true }"
+        >
+            <option value="HUF">HUF</option>
+            <option
+                *ngFor="let item of current?.exchangeRates | keyvalue"
+                [value]="item.key"
+            >
+                {{ item.key }}
+            </option>
+        </select>
+    </div>
+    <input
+        class="mt-auto w-25 mt-auto form-control bg-dark text-light"
+        readonly
+        disabled
+        [value]="calculate()"
+    />
 </form>

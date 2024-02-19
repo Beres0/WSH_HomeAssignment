@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace WSH_HomeAssignment.Api.Services.ExchangeRates.Outputs
+﻿namespace WSH_HomeAssignment.Api.Services.ExchangeRates.Outputs
 {
     public class DailyExchangeRatesDto
     {
