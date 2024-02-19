@@ -76,7 +76,7 @@ ng serve
 - secretek/paraméterek jöhetnének környezeti változókból és nem beleégetve a config fájlba
 - nincs virtualizáció / konténerizáció
 - [CurrentExchangeRatesRequester](https://github.com/Beres0/WSH_HomeAssignment/blob/master/WSH_HomeAssignment.Api/Background/CurrentExchangeRatesRequester.cs) [CachedExchangeRatesService](https://github.com/Beres0/WSH_HomeAssignment/blob/master/WSH_HomeAssignment.Infrastructure/ExchangeRatesServices/CachedExchangeRatesService.cs)
- Elvileg 6 óránként küld egy kérés a külső árfolyam szolgáltatóhoz és ha van új aktuális árfolyam, akkor frissíti az adatbázist, meg a cache-t. Manuálisan lett tesztelve rövidebb intervallumokra, de van egy olyan sejtésem, hogy hosszabb időnél elhalhat task vagy a webszerver sajátosságai miatt vagy mert nem elég robosztus a kívétel kezelés
+ Elvileg 6 óránként küld egy kérés a külső árfolyam szolgáltatóhoz és ha van új aktuális árfolyam, akkor frissíti az adatbázist, meg a cache-t. Manuálisan lett tesztelve rövidebb intervallumokra, de van egy olyan sejtésem, hogy hosszabb időnél elhalhat task vagy a webszerver sajátosságai miatt vagy mert nem elég robosztus a kivételkezelés
 - Az adatmodellek rétegek közötti átalakítását kézzel írtam meg. Érdemes lett volna inkább készítenem egy automapper-t optimalizált reflexióval, vagy használni egy létező megoldást. 
 ### Frontend
 - nincs kliens oldali validáció
