@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+using System.Reflection;
 
 namespace WSH_HomeAssignment.Infrastructure.Data
 {
@@ -8,9 +9,13 @@ namespace WSH_HomeAssignment.Infrastructure.Data
     {
         private string? ConnString { get; set; }
 
-        public ExchangeRateDbContextFactory(IConfiguration configuration)
+        public ExchangeRateDbContextFactory()
         {
-            ConnString = configuration.GetConnectionString("DefaultConnection");
+             var config=new ConfigurationBuilder().SetBasePath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!)
+                                                  .AddJsonFile("appsettings.json")
+                                                  .Build();
+
+            ConnString = config.GetConnectionString("DefaultConnection");
         }
 
         public ExchangeRateDbContext CreateDbContext(string[] args)

@@ -34,6 +34,11 @@ namespace WSH_HomeAssignment.Api
             services.AddTransient<IDailyExchangeRateRepository, DailyExchangeRateRepository>();
             services.AddTransient<ISavedExchangeRateRepository, SavedExchangeRateRepository>();
         }
+        private static void AddLogging(WebApplicationBuilder builder)
+        {
+            builder.Logging.AddConsole();
+            builder.Logging.AddDebug();
+        }
 
         private static void AddAuthentication(IServiceCollection services, ConfigurationManager configuration)
         {
@@ -126,6 +131,7 @@ namespace WSH_HomeAssignment.Api
 
         public static IServiceCollection AddServices(this IServiceCollection services, WebApplicationBuilder builder)
         {
+            AddLogging(builder);
             AddDbContext(services, builder.Configuration);
             AddAuthentication(services, builder.Configuration);
             AddRepositories(services);
