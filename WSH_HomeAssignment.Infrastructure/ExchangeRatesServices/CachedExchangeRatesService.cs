@@ -26,21 +26,15 @@ namespace WSH_HomeAssignment.Infrastructure.ExchangeRatesServices
         public async Task RefreshAsync(CancellationToken cancellationToken = default)
         {
             var last = await repository.FindLastAsync(cancellationToken);
-            try
+
+            var requested = await external.GetCurrentExchangeRatesAsync(cancellationToken);
+            if (last is null || last.Date < requested.Date)
             {
-                var requested = await external.GetCurrentExchangeRatesAsync(cancellationToken);
-                if (last is null || last.Date < requested.Date)
-                {
-                    await repository.CreateAsync(requested, cancellationToken);
-                    await repository.SaveChangesAsync(cancellationToken);
-                    cached = requested;
-                }
-                else
-                {
-                    cached = last;
-                }
+                await repository.CreateAsync(requested, cancellationToken);
+                await repository.SaveChangesAsync(cancellationToken);
+                cached = requested;
             }
-            catch (InfrastructureException)
+            else
             {
                 cached = last;
             }
