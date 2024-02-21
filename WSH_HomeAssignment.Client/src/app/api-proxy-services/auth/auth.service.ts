@@ -44,19 +44,21 @@ export class AuthService extends ApiService {
     }
 
     getToken() {
-        const stored = localStorage.getItem(this.tokenKey);
-        if (stored == null) {
-            this.logout();
-            return undefined;
+        if (this.cachedToken == undefined) {
+            const stored = localStorage.getItem(this.tokenKey);
+            if (stored == null) {
+                return undefined;
+            }
+            const token = Object.assign({}, JSON.parse(stored));
+            this.cachedToken = token;
         }
+
         const now = new Date().getTime();
         const expiration = new Date(this.cachedToken!.expiration).getTime();
         if (now >= expiration) {
             this.logout();
             return undefined;
         }
-        const token = Object.assign({}, JSON.parse(stored));
-        this.cachedToken = token;
         return this.cachedToken;
     }
 }
