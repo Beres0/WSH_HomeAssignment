@@ -24,7 +24,7 @@ Az alábbi funkciókat kérjük megvalósítani:
         
 ## Működtetés
 ### Backend
-Az API megfelelő működéséhez létre kell hoznunk az adatbázist, ehhez szükségünk van [.NET CLI](https://learn.microsoft.com/en-us/dotnet/core/tools/)-re és egy minimum egy 7.0.16-s verzió számú [dotnet-ef](https://learn.microsoft.com/en-us/ef/core/cli/dotnet) fejlesztői eszközre.
+Az API megfelelő működéséhez létre kell hoznunk az adatbázist, ehhez szükségünk van [.NET CLI](https://learn.microsoft.com/en-us/dotnet/core/tools/)-re és egy minimum 7.0.16-s verzió számú [dotnet-ef](https://learn.microsoft.com/en-us/ef/core/cli/dotnet) fejlesztői eszközre.
 
 Telepítés
 ```
@@ -40,7 +40,7 @@ Adatbázis létrehozása (gyökérkönyvtár).
 dotnet-ef database update --project WSH_HomeAssignment.Infrastructure
 ```
 ### Frontend
-Kliens futtatásához szükségünk van az [NPM](https://docs.npmjs.com/cli/v8/commands/npm-install) csomagkezelőre és az [Angular CLI](https://angular.io/cli)-re.
+Kliens futtatásához szükségünk van a [NodeJs-NPM](https://nodejs.org/en/download) csomagkezelőre és az [Angular CLI](https://angular.io/cli)-re.
 
 Függőségek telepítése (/WSH_HomeAssignment.Client)
 ```
@@ -70,16 +70,14 @@ ng serve
 ### Backend
 - nincsenek unit([DailyExchangeRatesXmlParser](https://github.com/Beres0/WSH_HomeAssignment/blob/master/WSH_HomeAssignment.Tests/Infrastructure/ExchangeRatesService/MNBExchangeRatesService/DailyExchangeRatesXmlParserTest.cs) kívételével), illetve integrációs tesztek
 - nincs dokumentáció
-- nincs loggolás
 - nincs auditálás
-- gyenge jelszókövetelmények
+- gyenge regisztrációs-/jelszó követelmények
+- nem biztonságos cross origin beállítás 
 - secretek/paraméterek jöhetnének környezeti változókból és nem beleégetve a config fájlba
 - nincs virtualizáció / konténerizáció
-- [CurrentExchangeRatesRequester](https://github.com/Beres0/WSH_HomeAssignment/blob/master/WSH_HomeAssignment.Api/Background/CurrentExchangeRatesRequester.cs) [CachedExchangeRatesService](https://github.com/Beres0/WSH_HomeAssignment/blob/master/WSH_HomeAssignment.Infrastructure/ExchangeRatesServices/CachedExchangeRatesService.cs)
- Elvileg 6 óránként küld egy kérés a külső árfolyam szolgáltatóhoz és ha van új aktuális árfolyam, akkor frissíti az adatbázist, meg a cache-t. Manuálisan lett tesztelve rövidebb intervallumokra, de van egy olyan sejtésem, hogy hosszabb időnél elhalhat task vagy a webszerver sajátosságai miatt vagy mert nem elég robosztus a kivételkezelés
-- Az adatmodellek rétegek közötti átalakítását kézzel írtam meg. Érdemes lett volna inkább készítenem egy automapper-t optimalizált reflexióval, vagy használni egy létező megoldást. 
+
 ### Frontend
 - nincs kliens oldali validáció
-- nincs le kezelve, ha az api nem elérhető
+- nincs lekezelve, ha az api nem elérhető
 - nincs dokumentáció
 - nincsenek unit tesztek, illetve automatizált tesztek
