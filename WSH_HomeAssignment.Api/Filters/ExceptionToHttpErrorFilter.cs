@@ -15,8 +15,11 @@ namespace WSH_HomeAssignment.Api.Filters
             {typeof(InvalidArgumentException),StatusCodes.Status400BadRequest},
         };
 
+      
         public override Task OnExceptionAsync(ExceptionContext context)
         {
+            var loggerFactory=context.HttpContext.RequestServices.GetService<ILoggerFactory>();
+            loggerFactory!.CreateLogger(context.RouteData.ToString()!).LogError(context.Exception,context.Exception.Message);
             var type = context.Exception.GetType();
             if (map.TryGetValue(type, out int value))
             {
@@ -25,10 +28,8 @@ namespace WSH_HomeAssignment.Api.Filters
             }
             else
             {
-                //prod
-                //var internalServerError = context.Exception.ToSomethingWentWrongDto();
-                //context.Result = new ObjectResult(internalServerError){ StatusCode=internalServerError.HttpErrorCode};
-                //
+                var internalServerError = context.Exception.ToSomethingWentWrongDto();
+                context.Result = new ObjectResult(internalServerError){ StatusCode=internalServerError.HttpErrorCode};
             }
             return base.OnExceptionAsync(context);
         }
