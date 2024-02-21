@@ -66,6 +66,7 @@ export class SavedExchangeRateListComponent {
                 });
                 if (index != undefined) {
                     this.items.splice(index, 1);
+                    this.totalCount--;
                 }
             },
             error: (e) => {
